@@ -1,9 +1,9 @@
 # Homiefy - A Website Designed for Booking Local Housing Service
 
 Collaborators:
-On the Frondend: Anushi Aggarwal, Risha Aich
-On the Machine Learning Task: Xi Zeng
-Me on the Backend
+- On the Frondend: Anushi Aggarwal, Risha Aich
+- On Machine Learning: Xi Zeng
+- And me on the Backend!
 
 ## Click the image below to watch our demo video!
 [![IMAGE ALT TEXT](http://img.youtube.com/vi/QpzczGZXbtA/0.jpg)](http://www.youtube.com/watch?v=QpzczGZXbtA "CS411 | Homeify-By Databasasters")
