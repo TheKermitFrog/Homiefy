@@ -1,0 +1,121 @@
+{% load static%}
+<!DOCTYPE html>
+<html lang="en">
+
+  {% include 'header.html' %}
+
+  <!-- Page Content -->
+  <div class="container">
+
+    <!-- Page Heading/Breadcrumbs -->
+    <h1 class="mt-4 mb-3">Search Results
+      <!-- <small>Subheading</small> -->
+    </h1>
+
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">
+        <a href="/">Home</a>
+      </li>
+      <li class="breadcrumb-item active">Search Results</li>
+    </ol>
+
+    <!-- Project One -->
+    <div class="row">
+      {% load duration_tansform %}
+
+
+<div class="col-md-8">
+  <div class="card mb-4">
+    <h5 class="card-header">Search</h5>
+    <div class="card-body">
+      <form method='GET' action='/search'>
+      <div class="input-group">          
+          <input type='text' name='q' class="form-control" placeholder='Search services' value='{{ request.GET.q }}'/>
+         
+        <span class="input-group-append">
+          <input type='submit' class="btn btn-secondary"  value='Go!' />
+
+          <!-- <button class="btn btn-secondary" type="submit">Go!</button> -->
+        </span>
+      </form>
+      </div>
+    </div>
+
+
+  {% if service_list %}
+  <!-- Blog Post -->
+  {% for service in service_list %}
+        <!-- Blog Post -->
+        <div class="card mb-4">
+          <div class="card-body">
+            <h2 class="card-title">{{service.businessPartner__businessType}} provided by {{service.businessPartner__businessName}}</h2>
+            <p class="card-text">Description: {{service.businessPartner.description}}</p>
+            <p class="card-text">Estimated duration: {{service.duration|dur_calc}}</p>
+            <p class="card-text">Estimated price: {{service.price}}</p>
+            <p><a href="{% url 'service_info' service_id=service.id  %}">More Info</a></p>
+            <p><a href="{% url 'make_appointment' service_id=service.id  %}">Schedule Service!</a></p>
+            <!-- <a href="#" class="btn btn-primary">View More &rarr;</a> -->
+          </div>
+        </div>
+      {% endfor %}
+
+      {% else %}
+      <h1>No results have been found. Check out our most popular services.</h1>
+      {% for service in popular_list %}
+
+      <div class="card mb-4">
+        <div class="card-body">
+          <h2 class="card-title">{{service.type}} provided by {{service.businessPartner.businessName}}</h2>
+          <p class="card-text">Description: {{service.businessPartner.description}}</p>
+          <p class="card-text">Estimated duration: {{service.duration|dur_calc}}</p>
+          <p class="card-text">Estimated price: {{service.price}}</p>
+          <p><a href="{% url 'service_info' service_id=service.id  %}">More Info</a></p>
+          <p><a href="{% url 'make_appointment' service_id=service.id  %}">Schedule Service!</a></p>
+          <!-- <a href="#" class="btn btn-primary">View More &rarr;</a> -->
+        </div>
+      </div>
+
+      {% endfor %}
+  {% endif %}
+
+
+  <!-- Pagination -->
+  <div class="pagination justify-content-center mb-4">
+    <span class="step-links">
+        {% if service_list.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ service_list.previous_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">{{ service_list.previous_page_number }}</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ service_list.number }} of {{ service_list.paginator.num_pages }}.
+        </span>
+
+        {% if service_list.has_next %}
+            <a href="?page={{ service_list.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">{{ service_list.next_page_number }}</a>
+            <a href="?page={{ service_list.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+
+</div>
+    <!-- /.row -->
+
+
+  <!-- /.container -->
+
+  <!-- Footer -->
+  <!-- <footer class="py-5 bg-dark">
+    <div class="container">
+      <p class="m-0 text-center text-white">Copyright &copy; Your Website 2020</p>
+    </div> -->
+    <!-- /.container -->
+  <!-- </footer> -->
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>

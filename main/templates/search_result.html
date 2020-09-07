@@ -1,0 +1,52 @@
+<!-- DOCTYPE html -->
+{% load duration_tansform %}
+
+<html>
+
+<div>
+{% if service_list %}
+    <h1>This is the searching result list</h1>
+    {% for service in service_list %}
+      <h4>
+        <a href="{% url 'service_info' service_id=service.id %}">{{service.businessPartner__businessType}} provided by {{service.businessPartner__businessName}}</a>
+      Estimated duration: {{service.duration|dur_calc}}
+      Estimated price: {{service.price}}
+      </h4>
+
+    {% endfor %}
+  {% else %}
+      <h1>No results have been found. Check out on our most popular services.</h1>
+      {% for service in popular_list %}
+        <h4>
+          <a href="{% url 'service_info' service_id=service.id %}">{{service.type}} provided by {{service.businessPartner.businessName}}</a>
+        Estimated duration: {{service.duration|dur_calc}}
+        Estimated price: {{service.price}}
+        </h4>
+
+      {% endfor %}
+  {% endif %}
+
+  <!-- There should be a pagination over here -->
+
+<div class="pagination">
+    <span class="step-links">
+        {% if service_list.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ service_list.previous_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">{{ service_list.previous_page_number }}</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ service_list.number }} of {{ service_list.paginator.num_pages }}.
+        </span>
+
+        {% if service_list.has_next %}
+            <a href="?page={{ service_list.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">{{ service_list.next_page_number }}</a>
+            <a href="?page={{ service_list.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+
+</div>
+
+
+</html>

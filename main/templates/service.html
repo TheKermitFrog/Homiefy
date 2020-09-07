@@ -1,0 +1,56 @@
+{% load static%}
+<!DOCTYPE html>
+<html lang="en">
+
+  {% include 'header.html' %}
+  {% load crispy_forms_tags %}
+  <!-- Page Content -->
+  <div class="container">
+
+    <!-- Page Heading/Breadcrumbs -->
+    <h1 class="mt-4 mb-3">{{service.businessPartner.businessName}}
+      <small>{{service.type}} </small>
+    </h1>
+
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">
+        <a href="/">Home</a>
+      </li>
+      <li class="breadcrumb-item active">{{service.type}}</li>
+    </ol>
+
+<h4>More Information</h4>
+
+{% load duration_tansform %}
+Business: {{service.businessPartner.businessName}}
+</br>
+Service type: {{service.type}} 
+</br>
+Estimated duration: {{service.duration|dur_calc}}
+</br>
+Estimated costs: ${{service.price}}
+</br>
+Description: {{service.businessPartner.description}}
+</br></br>
+
+
+
+<h4>Yelp Reviews</h4>
+
+{% if not reviews %}
+No reviews for this service available from Yelp
+{% endif %}
+{% for review in reviews %}
+</br>
+<h4>Rating: {{review.rating}}</h4>
+</br>
+{{review.comment}}
+</br>
+{% endfor %}
+</br></br>
+
+<a class="btn btn-primary" href="{% url 'make_appointment' service_id=service.id %}">Schedule Service!</a>
+<!-- <button type="submit" class="btn btn-block btn-lg btn-primary">Sign up</button> -->
+
+
+

@@ -1,0 +1,53 @@
+<h2>Your upcoming appointments:</h2>
+
+{% if not upcoming_appointments %}
+<h3>You have no upcoming appointments to display.</h3>
+{% else %}
+
+{% for appointment in upcoming_appointments %}
+<p>
+Service Type: {{appointment.service.type}}
+<br>
+Start Time: {{appointment.startTime|date:'Y-m-d H:i'}}
+<br>
+Business: {{appointment.partner.businessName}}
+<br>
+Phone Number: {{appointment.partner.businessNumber}}
+</p>
+
+<form action="{% url 'cancel_appointment' appointment.id %}" method="post">
+    {% csrf_token %}
+    <input type="submit" value="Cancel">
+</form>
+{% endfor %}
+{% endif %}
+
+{% for message in messages %}
+    <p>{{ message }}</p>
+{% endfor %}
+
+<h2>Your past and cancelled appointments:</h2>
+
+{% if not past_appointments %}
+<h2>You have no past appointment to display now.</h2>
+{% else %}
+
+{% for appointment in past_appointments %}
+<p>
+{% if appointment.status == 'CANCELLED' %}
+Cancelled
+{% else %}
+Completed
+{% endif %}
+<br>
+Service Type: {{appointment.service.type}}
+<br>
+Start Time: {{appointment.startTime|date:'Y-m-d H:i'}}
+<br>
+Business: {{appointment.partner.businessName}}
+<br>
+Phone Number: {{appointment.partner.businessNumber}}
+</p>
+{% endfor %}
+
+{% endif %}

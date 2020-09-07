@@ -1,0 +1,58 @@
+{% load duration_tansform %}
+
+<p>
+<h2>Take a look at our most popular {{type}} service!</h2>
+
+{% if not top3 %}
+<h3> No {{type}} was booked before, be the first one to book them!</h3>
+{% elif top3|length < 3 %}
+Only {{top3|length}} service were booked before:
+</br>
+{% endif %}
+{% for service, count in top3 %}
+<h4>
+<a href="{% url 'service_info' service_id=service.id %}">{{service.type}} provided by {{service.businessPartner.businessName}}</a> was booked {{count}} times.
+</br>
+
+
+Estimated duration: {{service.duration|dur_calc}}
+Estimated costs: ${{service.price}}
+</h4>
+{% endfor %}
+</p>
+
+</br>
+
+<div>
+
+<p>
+<h2> Our {{type}} services:</h2>
+{% for service in services %}
+<h4>
+  <a href="{% url 'service_info' service_id=service.id %}">{{service.type}} provided by {{service.businessPartner.businessName}}</a>
+Estimated duration: {{service.duration|dur_calc}}
+Estimated price: {{service.price}}
+</h4>
+</p>
+{% endfor %}
+
+<div class="pagination">
+    <span class="step-links">
+        {% if services.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ services.previous_page_number }}">{{ services.previous_page_number }}</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ services.number }} of {{ services.paginator.num_pages }}.
+        </span>
+
+        {% if services.has_next %}
+            <a href="?page={{ services.next_page_number }}">{{ services.next_page_number }}</a>
+            <a href="?page={{ services.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+
+
+</div>

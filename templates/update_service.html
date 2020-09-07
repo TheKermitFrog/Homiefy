@@ -1,0 +1,108 @@
+{% load static%}
+{% load crispy_forms_tags %}
+<!DOCTYPE html>
+<html lang="en">
+
+  {% include 'header.html' %}
+
+
+  <!-- Page Content -->
+  <div class="container">
+
+    <!-- Page Heading/Breadcrumbs -->
+    <h1 class="mt-4 mb-3">Update Service
+      <!-- <small>Service</small> -->
+    </h1>
+
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">
+        <a href="/">Home</a>
+      </li>
+      <li class="breadcrumb-item active">Update Service</li>
+    </ol>
+
+    <!-- Content Row -->
+    <!-- <div class="row"> -->
+      <!-- Map Column -->
+      <!-- <div class="col-lg-8 mb-4"> -->
+        <!-- Embedded Google Map -->
+        <!-- <iframe style="width: 100%; height: 400px; border: 0;" src="http://maps.google.com/maps?hl=en&amp;ie=UTF8&amp;ll=37.0625,-95.677068&amp;spn=56.506174,79.013672&amp;t=m&amp;z=4&amp;output=embed"></iframe>
+      </div> -->
+      <!-- Contact Details Column -->
+      <!-- <div class="col-lg-4 mb-4">
+        <h3>Service Details</h3> -->
+        <!-- <p>
+          <abbr title="Business Name">Business</abbr>: Bob's Electric Services
+          <br>
+        </p>
+        <p>
+          <abbr title="Address">Address</abbr>: 548 Brook Green St
+          <br>
+        </p>
+        <p>
+          <abbr title="Phone">Phone</abbr>: (123) 456-7890
+        </p>
+        <p>
+          <abbr title="Email">Email</abbr>:
+          <a href="mailto:name@example.com">name@example.com
+          </a>
+        </p>
+        <p>
+          <abbr title="Hours">Hours</abbr>: Monday - Friday: 9:00 AM to 5:00 PM
+        </p>
+      </div>
+    </div> -->
+    <!-- /.row -->
+
+    <!-- Contact Form -->
+    <!-- In order to set the email address and subject line for the contact form go to the bin/contact_me.php file. -->
+    <div class="row">
+      <div class="col-lg-8 mb-4">
+        <!-- <h3>Update Service</h3> -->
+
+          <!-- You are updating your {{service.type}} service -->
+          <!-- <p><strong>Update {{service.type}}</strong></p> -->
+          <form method="POST" class="form_group">
+            {{form | crispy}}
+            {% csrf_token %}
+            <button type="submit" class="btn btn-success" name="button">Update</button>
+            <!-- <button type="button" class="btn btn-secondary" onclick="window.location.href='/partner_management'">Cancel</button> -->
+          </form>
+      <div>
+          <form action="{% url 'delete_service' service.id %}" method="post">
+              {% csrf_token %}
+              <br>
+              <input type="submit" class="btn btn-danger"value="Delete this Service!">
+              <br><br>
+              <button type="button" class="btn btn-secondary" onclick="window.location.href='/partner_management'">Cancel</button>
+          </form>
+          </div>
+
+
+      </div>
+
+    </div>
+    <!-- /.row -->
+
+  </div>
+  <!-- /.container -->
+
+  <!-- Footer -->
+  <!-- <footer class="py-5 bg-dark">
+    <div class="container">
+      <p class="m-0 text-center text-white">Copyright &copy; Your Website 2020</p>
+    </div> -->
+    <!-- /.container -->
+  <!-- </footer> -->
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="{% static 'vendor/jquery/jquery.min.js'%}"></script>
+  <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js'%}"></script>
+  <!-- Contact form JavaScript -->
+  <!-- Do not edit these files! In order to set the email address and subject line for the contact form go to the bin/contact_me.php file. -->
+  <script src="js/jqBootstrapValidation.js"></script>
+  <script src="js/contact_me.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,99 @@
+{% load static%}
+<!DOCTYPE html>
+<html lang="en">
+
+  {% include 'header.html' %}
+  {% load crispy_forms_tags %}
+  <!-- Page Content -->
+  <div class="container">
+
+    <!-- Page Heading/Breadcrumbs -->
+    <h1 class="mt-4 mb-3">{{user.first_name}} {{user.last_name}}
+      <small>Customer</small>
+    </h1>
+
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">
+        <a href="/">Home</a>
+      </li>
+      <li class="breadcrumb-item active">{{user.first_name}} {{user.last_name}}</li>
+    </ol>
+
+<h4>Your upcoming appointments:</h4>
+
+{% if not upcoming_appointments %}
+You have no upcoming appointments to display.
+{% else %}
+{% for message in messages %}
+
+<div class="alert alert-danger">
+    <a class="close" href="#" data-dismiss="alert">×</a>
+
+    {{ message }}
+
+</div>
+{% endfor %}
+{% for appointment in upcoming_appointments %}
+<p>
+
+Service Type: {{appointment.service.type}}
+<br>
+Start Time: {{appointment.startTime|date:'Y-m-d H:i'}}
+<br>
+Business: {{appointment.partner.businessName}}
+<br>
+Phone Number: {{appointment.partner.businessNumber}}
+</p>
+<form action="{% url 'cancel_appointment' appointment.id %}" method="POST">
+  {% csrf_token %}
+    <input type="submit" class="btn btn-danger" value="Cancel">
+    <br><br>
+</form>
+{% endfor %}
+
+{% endif %}
+
+<br><br>
+<h4>Your past and cancelled appointments:</h4>
+
+{% if not past_appointments %}
+You have no past appointment to display right now.
+{% else %}
+
+{% for appointment in past_appointments %}
+<p>
+{% if appointment.status == 'CANCELLED' %}
+Cancelled
+{% else %}
+Completed
+{% endif %}
+<br>
+Service Type: {{appointment.service.type}}
+<br>
+Start Time: {{appointment.startTime|date:'Y-m-d H:i'}}
+<br>
+Business: {{appointment.partner.businessName}}
+<br>
+Phone Number: {{appointment.partner.businessNumber}}
+</p>
+{% endfor %}
+
+{% endif %}
+
+  </div>
+  <!-- /.container -->
+
+  <!-- Footer -->
+  <!-- <footer class="py-5 bg-dark">
+    <div class="container">
+      <p class="m-0 text-center text-white">Copyright &copy; Your Website 2020</p>
+    </div> -->
+    <!-- /.container -->
+  <!-- </footer> -->
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="{% static 'vendor/jquery/jquery.min.js'%}"></script>
+  <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js'%}"></script>
+</body>
+
+</html>

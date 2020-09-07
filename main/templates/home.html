@@ -1,0 +1,21 @@
+<h1>homepage</h1>
+
+{% if user.is_authenticated %}
+<p>login users see this</p>
+{% endif %}
+
+{% if user.is_authenticated and user.isUser %}
+<p>login customers see this</p>
+{% endif %}
+
+{% if user.is_authenticated and user.isPartner %}
+<p>login partners see this</p>
+{% endif %}
+
+{% for service in services %}
+{{service.id}}
+{% endfor %}
+<br>
+{% for type in types %}
+{{type}}
+{% endfor %}

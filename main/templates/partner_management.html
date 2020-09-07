@@ -1,0 +1,42 @@
+<h2>Your upcoming appointments:</h2>
+
+{% if not appointments %}
+<h3>You have no upcoming appointments to display.</h3>
+{% else %}
+
+{% for appointment in appointments %}
+<p>
+Service Type: {{appointment.service.type}}
+<br>
+Start Time: {{appointment.startTime|date:'Y-m-d H:i'}}
+<br>
+Customer: {{appointment.customer.first_name}}{{appointment.customer.last_name}}
+<br>
+Phone Number: {{appointment.customer.phoneNumber}}
+<br>
+Address: {{appointment.customer.address}}
+</p>
+{% endfor %}
+
+{% endif %}
+
+<h2>Your services:</h2>
+<a href="create_service">Create new service<a>
+
+{% if not services %}
+<h3>You have no available service to display now.</h3>
+{% else %}
+
+{% for service in services %}
+<p>
+Service Type: {{service.type}} <a href="service/{{service.id}}/update">Edit<a>
+<br>
+Price: {{service.price}}
+<br>
+Duration: {{service.duration}}
+<br>
+Max Capacity: {{service.maxCapacity}}
+</p>
+{% endfor %}
+
+{% endif %}

@@ -1,0 +1,105 @@
+{% load static%}
+<!DOCTYPE html>
+<html lang="en">
+
+  {% include 'header.html' %}
+  <!-- Page Content -->
+  <div class="container">
+
+      <!-- Page Heading/Breadcrumbs -->
+      <h1 class="mt-4 mb-3">Services
+        <!-- <small>Service</small> -->
+      </h1>
+
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <a href="/">Home</a>
+        </li>
+        <li class="breadcrumb-item active">Services</li>
+      </ol>
+
+    <!-- Services Section -->
+    <!-- <h3>Services</h3> -->
+    <div class="card mb-4">
+      <h5 class="card-header">Search</h5>
+      <div class="card-body">
+        <form method='GET' action='search/'>
+        <div class="input-group">          
+            <input type='text' name='q' class="form-control" placeholder='Search services' value='{{ request.GET.q }}'/>
+           
+          <span class="input-group-append">
+            <input type='submit' class="btn btn-secondary"  value='Go!' />
+
+            <!-- <button class="btn btn-secondary" type="submit">Go!</button> -->
+          </span>
+        </form>
+        </div>
+      </div>
+    </div>
+
+    
+
+    <!-- Services -->
+    <div class="row">
+      {% for type in types %}
+
+
+        <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+          <div class="card h-100">
+            <a href="#">
+              {% with 'images/'|add:type.type|add:'.png' as image_path %}
+              <img class="card-img-top" src="{% static image_path%}" alt=""></a>
+              {% endwith %}
+            <div class="card-body">
+              <h4 class="card-title">
+                  <p><a href="{% url 'service_categories' type=type.type|lower %}">{{type.type}}</a></p>
+              </h4>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Pagination -->
+    <!-- <ul class="pagination justify-content-center">
+      <li class="page-item">
+        <a class="page-link" href="#" aria-label="Previous">
+          <span aria-hidden="true">&laquo;</span>
+          <span class="sr-only">Previous</span>
+        </a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#">1</a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#">2</a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#">3</a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#" aria-label="Next">
+          <span aria-hidden="true">&raquo;</span>
+          <span class="sr-only">Next</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+  </div> -->
+  <!-- /.container -->
+
+  <!-- Footer -->
+  <!-- <footer class="py-5 bg-dark">
+    <div class="container">
+      <p class="m-0 text-center text-white">Copyright &copy; Your Website 2020</p>
+    </div> -->
+    <!-- /.container -->
+  <!-- </footer> -->
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="{% static 'vendor/jquery/jquery.min.js'%}"></script>
+  <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js'%}"></script>
+
+</body>
+
+</html>

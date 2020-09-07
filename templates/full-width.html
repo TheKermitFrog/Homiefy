@@ -1,0 +1,62 @@
+{% load static%}
+
+<!DOCTYPE html>
+<html lang="en">
+  {% include 'header.html' %}
+  {% load crispy_forms_tags %}
+
+
+    <body>
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+            <div class="card card-signin my-5">
+              <div class="card-body">
+                <h5 class="card-title text-center">Sign In</h5>
+                <form class="form-signin">
+                  {% csrf_token %}
+                  {{form|crispy}}
+                  <button type="submit" class="btn btn-success">Login</button>
+                <span class="select-arrow"></span>
+                </div>
+                  <div class="custom-control custom-checkbox mb-3">
+                    <input type="checkbox" class="custom-control-input" id="customCheck1">
+                    <label class="custom-control-label" for="customCheck1">Remember password</label>
+                  </div>
+                  <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Sign in</button>
+                  <hr class="my-4">
+                  <div class="w-full text-center p-t-55">
+                      <span class="txt2">
+                        Not a member?
+                      </span>
+          
+                      <!-- <a href="#" class="txt2 bo1">
+                        Sign up! -->
+                        <p><a href="sidebar.html">Sign Up!</a></p>
+                      </a>
+                    </div>
+                  <!-- <button class="btn btn-lg btn-google btn-block text-uppercase" type="submit"><i class="fab fa-google mr-2"></i> Don't have an account?</button>
+                  <button class="btn btn-lg btn-facebook btn-block text-uppercase"><i class="fab fa-facebook-f mr-2"></i> Sign Up!</button> -->
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </body>
+
+  <!-- Footer -->
+  <!-- <footer class="py-5 bg-dark">
+    <div class="container">
+      <p class="m-0 text-center text-white">Copyright &copy; Your Website 2020</p>
+    </div> -->
+    <!-- /.container -->
+  <!-- </footer> -->
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>

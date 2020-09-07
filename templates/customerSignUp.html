@@ -1,0 +1,110 @@
+{% load static%}
+<!DOCTYPE html>
+<html lang="en">
+
+  {% include 'header.html' %}
+  {% load crispy_forms_tags %}
+  <!-- Page Content -->
+  <div class="container">
+
+    <!-- Page Heading/Breadcrumbs -->
+    <h1 class="mt-4 mb-3">Sign Up
+      <small>Customer</small>
+    </h1>
+
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">
+        <a href="/">Home</a>
+      </li>
+      <li class="breadcrumb-item active">About</li>
+    </ol>
+
+    <!-- Content Row -->
+    <!-- <div class="row"> -->
+      <!-- Sidebar Column -->
+      <!-- <div class="col-lg-3 mb-4">
+        <div class="list-group">
+          <a href="" class="list-group-item">Home</a>
+          <a href="about.html" class="list-group-item">About</a>
+          <a href="services.html" class="list-group-item">Services</a>
+          <a href="contact.html" class="list-group-item">Contact</a>
+          <a href="portfolio-1-col.html" class="list-group-item">1 Column Portfolio</a>
+          <a href="portfolio-2-col.html" class="list-group-item">2 Column Portfolio</a>
+          <a href="portfolio-3-col.html" class="list-group-item">3 Column Portfolio</a>
+          <a href="portfolio-4-col.html" class="list-group-item">4 Column Portfolio</a>
+          <a href="portfolio-item.html" class="list-group-item">Single Portfolio Item</a>
+          <a href="blog-home-1.html" class="list-group-item">Blog Home 1</a>
+          <a href="blog-home-2.html" class="list-group-item">Blog Home 2</a>
+          <a href="blog-post.html" class="list-group-item">Blog Post</a>
+          <a href="full-width.html" class="list-group-item">Full Width Page</a>
+          <a href="sidebar.html" class="list-group-item active">Sidebar Page</a>
+          <a href="faq.html" class="list-group-item">FAQ</a>
+          <a href="404.html" class="list-group-item">404</a>
+          <a href="pricing.html" class="list-group-item">Pricing Table</a>
+        </div>
+      </div> -->
+      <!-- Content Column -->
+      <!-- <div class="col-lg-9 mb-4">
+        <h2>Section Heading</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta, et temporibus, facere perferendis veniam beatae non debitis, numquam blanditiis necessitatibus vel mollitia dolorum laudantium, voluptate dolores iure maxime ducimus fugit.</p>
+      </div>
+    </div> -->
+    <!-- /.row -->
+
+  <!-- </div> -->
+  <!-- /.container -->
+
+  <!-- Footer -->
+  <!-- <footer class="py-5 bg-dark">
+    <div class="container">
+      <p class="m-0 text-center text-white">Copyright &copy; Your Website 2020</p>
+    </div> -->
+    <!-- /.container -->
+  <!-- </footer> -->
+
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-10 col-xl-9 mx-auto">
+          <div class="card card-signin flex-row my-5">
+            <div class="card-img-left d-none d-md-flex">
+               <!-- Background image for card set in CSS! -->
+            </div>
+            <div class="card-body">
+              <h5 class="card-title text-center">Register</h5>
+              <form class="form-signin" method="POST">
+                {% autoescape off %}
+                {{form|crispy}}
+                {% endautoescape %}
+                {% csrf_token %}
+
+
+                <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit" name="button">Register</button>
+              </form>
+                <hr class="my-4">
+                <div class="w-full text-center p-t-55">
+                    <span class="txt2">
+                      Already a registered customer?
+                    </span>
+
+                    <p><a href="full-width.html">Sign In!</a></p>
+                    </a>
+                  </div>
+                <!-- <a class="d-block text-center mt-2 small" href="#">Sign In</a> -->
+                <!-- <hr class="my-4"> -->
+                <!-- <button class="btn btn-lg btn-google btn-block text-uppercase" type="submit"><i class="fab fa-google mr-2"></i> Sign up with Google</button> -->
+                <!-- <button class="btn btn-lg btn-facebook btn-block text-uppercase" type="submit"><i class="fab fa-facebook-f mr-2"></i> Sign up with Facebook</button> -->
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="{% static 'vendor/jquery/jquery.min.js'%}"></script>
+  <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js'%}"></script>
+</body>
+
+</html>

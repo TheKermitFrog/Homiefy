@@ -1,0 +1,149 @@
+{% load static%}
+<!DOCTYPE html>
+<html lang="en">
+
+  {% include 'header.html' %}
+
+  <!-- Page Content -->
+  <div class="container">
+
+    <!-- Page Heading/Breadcrumbs -->
+    <h1 class="mt-4 mb-3 text-capitalize">{{type}}
+      <!-- <small>Subheading</small> -->
+    </h1>
+
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">
+        <a href="/">Home</a>
+      </li>
+      <li class="breadcrumb-item active text-capitalize">{{type}}</li>
+    </ol>
+
+    <div class="row">
+      {% load duration_tansform %}
+
+      <h4>&nbsp;Popular services for: "{{type}}"</h4>
+
+
+<div>
+
+{% if not top3 %}
+<p>&nbsp;&nbsp;No {{type}} services were booked before, be the first to book!</p>
+
+{% elif top3|length < 3 %}
+<p>&nbsp;&nbsp;Only {{top3|length}} service(s) booked before
+
+
+{% endif %}
+{% for service, count in top3 %}
+
+<p><a href="{% url 'service_info' service_id=service.id %}"> &nbsp;&nbsp;{{service.type}} provided by {{service.businessPartner.businessName}}</a> has been booked {{count}} times before
+
+
+
+<p>&nbsp;&nbsp;Estimated duration: {{service.duration|dur_calc}}
+<p>&nbsp;&nbsp;Estimated costs: ${{service.price}}
+
+{% endfor %}
+
+
+</div>
+
+      <!-- Blog Entries Column -->
+      <div class="col-md-8">
+        {% for service in services %}
+        <!-- Blog Post -->
+        <div class="card mb-4">
+          <div class="card-body">
+            <h1 class="card-title">{{service.businessPartner.businessName}}</h1>
+            <!-- <p class="card-text">Description: {{service.businessPartner.description}}</p> -->
+            <p class="card-text">Estimated duration: {{service.duration|dur_calc}}</p>
+            <p class="card-text">Estimated price: ${{service.price}}</p>
+            <p><a href="{% url 'service_info' service_id=service.id  %}">More Information</a></p>
+            <!-- <div>
+                {% if not top3 %}
+                <p>No {{type}} services were booked before, be the first to book!</p>
+                {% elif top3|length < 3 %}
+                <p>Only {{top3|length}} service(s) booked before!
+                {% endif %}
+                {% for service, count in top3 %}
+                <p>{{service.type}} from {{service.businessPartner.businessName}} has been booked {{count}} times.
+                {% endfor %}
+            </div> -->
+            <p><a href="{% url 'make_appointment' service_id=service.id  %}">Schedule Service!</a></p>
+            <!-- <a href="#" class="btn btn-primary">View More &rarr;</a> -->
+          </div>
+        </div>
+      {% endfor %}
+
+        <!-- Pagination -->
+
+          <div class="pagination justify-content-center mb-4">
+            <span class="step-links">
+                {% if services.has_previous %}
+                    <a href="?page=1">&laquo; first</a>
+                    <a href="?page={{ services.previous_page_number }}">{{ services.previous_page_number }}</a>
+                {% endif %}
+
+                <span class="current">
+                    Page {{ services.number }} of {{ services.paginator.num_pages }}.
+                </span>
+
+                {% if services.has_next %}
+                    <a href="?page={{ services.next_page_number }}">{{ services.next_page_number }}</a>
+                    <a href="?page={{ services.paginator.num_pages }}">last &raquo;</a>
+                {% endif %}
+            </span>
+        </div>
+
+
+      </div>
+
+      <!-- Sidebar Widgets Column -->
+      <div class="col-md-4">
+
+
+
+        <!-- Categories Widget -->
+        <div class="card mb-4">
+          <h5 class="card-header">Categories</h5>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-lg-6">
+                <ul class="list-unstyled mb-0">
+                  {% for type in service_types %}
+                  <li>
+                    <a href="{% url 'service_categories' type=type|lower %}" class="text-capitalize">{{type}}</a>
+                  </li>
+                  {% endfor %}
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Side Widget -->
+
+      </div>
+
+    </div>
+    <!-- /.row -->
+
+  </div>
+  <!-- /.container -->
+
+  <!-- Footer -->
+  <!-- <footer class="py-5 bg-dark">
+    <div class="container">
+      <p class="m-0 text-center text-white">Copyright &copy; Your Website 2020</p>
+    </div> -->
+    <!-- /.container -->
+  <!-- </footer> -->
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,72 @@
+{% load static %}
+{% load duration_tansform %}
+<!DOCTYPE html>
+<html lang="en">
+  {% include 'header.html' %}
+  {% load crispy_forms_tags %}
+
+
+  <!-- Page Content -->
+  <div class="container">
+
+    <!-- Page Heading/Breadcrumbs -->
+    <h1 class="mt-4 mb-3">Schedule
+      <!-- <small>Service</small> -->
+    </h1>
+
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">
+        <a href="/">Home</a>
+      </li>
+      <li class="breadcrumb-item active">{{service.type}} by {{service.businessPartner.businessName}}</li>
+    </ol>
+
+
+    <!-- Contact Form -->
+    <!-- In order to set the email address and subject line for the contact form go to the bin/contact_me.php file. -->
+    <div class="row">
+      <div class="col-lg-8 mb-4">
+        <!-- <h3>Schedule an Appointment</h3> -->
+        <p>
+        <h4>You are booking {{service.type}} provided by {{service.businessPartner.businessName}}!</h4>
+        Estimated service duration: {{service.duration|dur_calc}}
+        </br>
+        Estimated cost: ${{service.price}}
+        </p>
+        <form method="POST">
+          {% autoescape off %}
+          {{form|crispy}}
+          {% endautoescape %}
+          {% csrf_token %}
+
+          <!-- For success/fail messages -->
+          <button type="submit" class="btn btn-primary" id="sendMessageButton">Schedule Service!</button>
+          <button type="button" class="btn btn-secondary" onclick="window.location.href='/service/type/{{service.type|lower}}'">Cancel</button>
+        </form>
+      </div>
+
+    </div>
+    <!-- /.row -->
+
+  </div>
+  <!-- /.container -->
+
+  <!-- Footer -->
+  <!-- <footer class="py-5 bg-dark">
+    <div class="container">
+      <p class="m-0 text-center text-white">Copyright &copy; Your Website 2020</p>
+    </div> -->
+    <!-- /.container -->
+  <!-- </footer> -->
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="{% static 'vendor/jquery/jquery.min.js'%}"></script>
+  <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js'%}"></script>
+  <!-- Contact form JavaScript -->
+  <!-- Do not edit these files! In order to set the email address and subject line for the contact form go to the bin/contact_me.php file. -->
+  <script src="js/jqBootstrapValidation.js"></script>
+  <script src="js/contact_me.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,11 @@
+You are updating: {{service.type}}
+<form method="POST" class="form_group">
+  {{form}}
+  {% csrf_token %}
+  <button type="submit" class="btn btn-success" name="button">Update</button>
+</form>
+
+<form action="{% url 'delete_service' service.id %}" method="post">
+    {% csrf_token %}
+    <input type="submit" value="Delete Service">
+</form>

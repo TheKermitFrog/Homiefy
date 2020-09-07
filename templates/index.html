@@ -1,0 +1,116 @@
+{% load static%}
+<!DOCTYPE html>
+<html lang="en">
+
+{% include 'header.html' %}
+
+  <header>
+    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+      <ol class="carousel-indicators">
+        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+      </ol>
+      <div class="carousel-inner" role="listbox">
+        <!-- Slide One - Set the background image for this slide in the line below -->
+        <div class="carousel-item active" style="background-image: url('https://images.unsplash.com/photo-1482731215275-a1f151646268?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2250&q=80/1920x1080')">
+          <div class="carousel-caption d-none d-md-block">
+            <h3>Browse Services</h3>
+            <p>Uniquely suggested for you</p>
+          </div>
+        </div>
+        <!-- Slide Two - Set the background image for this slide in the line below -->
+        <div class="carousel-item" style="background-image: url('https://images.unsplash.com/photo-1515378960530-7c0da6231fb1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2250&q=80/1920x1080')">
+          <div class="carousel-caption d-none d-md-block">
+            <h3>Schedule Appointments</h3>
+            <p>Easily from your laptop or phone</p>
+          </div>
+        </div>
+        <!-- Slide Three - Set the background image for this slide in the line below -->
+        <div class="carousel-item" style="background-image: url('https://images.unsplash.com/photo-1507679799987-c73779587ccf?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2251&q=80/1920x1080')">
+          <div class="carousel-caption d-none d-md-block">
+            <h3>Add Your Business And Services</h3>
+            <p>(For businesses)</p>
+          </div>
+        </div>
+      </div>
+      <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+      </a>
+      <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- Page Content -->
+  <div class="container">
+
+    <h2 class="my-4">Welcome to Homiefy! </h2>
+
+    <!-- About -->
+  <!-- Intro Content -->
+  <div class="row">
+    <div class="col-lg-6">
+      <img class="img-fluid rounded mb-4" src="{%static 'images/logoo.png' %}"  width="500" height="400" alt="">
+    </div>
+    <div class="col-lg-6">
+      <h3>About Homiefy </h3>
+      <p>Homiefy is an all in one portal application that provides its users with a variety of at-home services to facilitate day to day living. These services include appliance repair, pest control, plumbing, electrical repair, and home cleaning to name a few. Users can browse, schedule, and manage appointments easily with a click of a button. </p>
+      <p>Homiefy provides valuable information about services including type of service, location, available hours, etc. parsed from online websites and Yelp API. Information regarding service ratings  are also included and will be provided by users of our application.</p>
+      <p>Functionalities include browsing available services, updating statuses of services, allowing business partners to list additional services, deleting no longer existing services, as well as the utilization of a recommendation system.</p>
+    </div>
+  </div>
+  <!-- /.row -->
+    <!-- /.row -->
+    <br>
+    <!-- Services -->
+
+<br>
+
+    <div class="row">
+      {% for type in types %}
+
+
+        <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+          <div class="card h-100">
+            <a href="#">{% with 'images/'|add:type.type|add:'.png' as image_path %}
+              <img class="card-img-top" src="{% static image_path%}" alt=""></a>
+              {% endwith %}</a>
+            <div class="card-body">
+              <h4 class="card-title">
+                  <p><a href="{% url 'service_categories' type=type.type|lower %}">{{type.type}}</a></p>
+              </h4>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+
+
+    <!-- New Members -->
+    <!-- <div class="card mb-4"> -->
+      <!-- <img class="card-img-top" src="http://placehold.it/750x300" alt="Card image cap"> -->
+      <div class="card-body">
+        <h3 class="card-title">New to Homiefy?</h3>
+        <p class="card-text">Sign up and experience a new way of making home more like home.</p>
+      <form action="/user_register">
+        <button type="submit" class="btn btn-primary btn-lg" >Sign up</button>
+      </form>
+
+      </div>
+
+
+
+  </div>
+
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="{% static 'vendor/jquery/jquery.min.js'%}"></script>
+  <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js'%}"></script>
+
+</body>
+
+</html>
